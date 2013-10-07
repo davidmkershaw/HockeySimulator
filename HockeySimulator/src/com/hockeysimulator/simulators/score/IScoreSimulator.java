@@ -1,6 +1,8 @@
 package com.hockeysimulator.simulators.score;
 
-public interface IScoreSimulator {
+import com.hockeysimulator.simulators.ISimulator;
+
+public interface IScoreSimulator extends ISimulator {
 
 	int simulate();
 	

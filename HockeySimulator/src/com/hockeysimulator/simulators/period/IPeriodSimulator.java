@@ -1,8 +1,9 @@
 package com.hockeysimulator.simulators.period;
 
-import com.hockeysimulator.PeriodResult;
+import com.hockeysimulator.results.PeriodResult;
+import com.hockeysimulator.simulators.ISimulator;
 
-public interface IPeriodSimulator {
+public interface IPeriodSimulator extends ISimulator {
 
 	PeriodResult simulate();
 	

@@ -1,5 +1,7 @@
 package com.hockeysimulator.simulators.modifiers;
 
+import com.hockeysimulator.simulators.random.Gaussian;
+
 public class SimpleGaussianModifier implements IGaussianModifier {
 
 	private double standardDeviationModifier;
@@ -12,21 +14,13 @@ public class SimpleGaussianModifier implements IGaussianModifier {
 	}
 
 	@Override
-	public double getStandardDeviationModifier() {
-		return standardDeviationModifier;
-	}
-
-	public void setStandardDeviationModifier(double standardDeviationModifier) {
-		this.standardDeviationModifier = standardDeviationModifier;
-	}
-
-	@Override
-	public double getAverageModifier() {
-		return averageModifier;
-	}
-
-	public void setAverageModifier(double averageModifier) {
-		this.averageModifier = averageModifier;
+	public Gaussian apply(final Gaussian gaussian) {
+		double standardDeviation = gaussian.getStandardDeviation();
+		double average = gaussian.getAverage();
+		standardDeviation *= standardDeviationModifier;
+		average *= averageModifier;
+		final Gaussian returnGaussian = new Gaussian (standardDeviation, average);
+		return returnGaussian;
 	}
 
 }

@@ -1,6 +1,10 @@
-package com.hockeysimulator;
+package com.hockeysimulator.results;
 
-public class PeriodResult {
+import com.hockeysimulator.Score;
+import com.hockeysimulator.ShotsOnNet;
+
+
+public class PeriodResult implements IResult {
 
 	private Score score;
 	private ShotsOnNet shotsOnNet;

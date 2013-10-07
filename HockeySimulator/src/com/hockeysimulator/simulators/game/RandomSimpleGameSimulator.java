@@ -1,38 +1,26 @@
 package com.hockeysimulator.simulators.game;
 
-import com.hockeysimulator.GameResult;
-import com.hockeysimulator.PeriodResult;
-import com.hockeysimulator.Score;
-import com.hockeysimulator.ShotsOnNet;
-import com.hockeysimulator.simulators.score.IScoreSimulator;
-import com.hockeysimulator.simulators.score.RandomSimpleScoreSimulator;
-import com.hockeysimulator.simulators.shots.IShotsOnNetSimulator;
-import com.hockeysimulator.simulators.shots.RandomSimpleShotsOnNetSimulator;
+import com.hockeysimulator.results.GameResult;
+import com.hockeysimulator.results.IResult;
+import com.hockeysimulator.results.PeriodResult;
+import com.hockeysimulator.simulators.IResultBuilder;
 
 public class RandomSimpleGameSimulator implements IGameSimulator {
 
-	private IScoreSimulator scoreSimulator;
-	private IShotsOnNetSimulator shotsSimulator;
-	private PeriodResult[] periods;
+	private IResultBuilder resultBuilder;
+	private IResult[] periods;
 	private static final int DEFAULT_NUMBER_OF_PERIODS = 3;
-
-	public RandomSimpleGameSimulator() {
-		scoreSimulator = new RandomSimpleScoreSimulator();
-		shotsSimulator = new RandomSimpleShotsOnNetSimulator();
-		periods = new PeriodResult[DEFAULT_NUMBER_OF_PERIODS];
-	}
 	
-	public RandomSimpleGameSimulator(final IScoreSimulator scoreSimulator, final IShotsOnNetSimulator shotsSimulator) {
-		this.scoreSimulator = scoreSimulator;
-		this.shotsSimulator = shotsSimulator;
+	public RandomSimpleGameSimulator(final IResultBuilder resultBuilder) {
+		this.resultBuilder = resultBuilder;
 		periods = new PeriodResult[DEFAULT_NUMBER_OF_PERIODS];
 	}
 
 	@Override
 	public GameResult simulate() {
-		final PeriodResult periodOne = buildPeriodResult();
-		final PeriodResult periodTwo = buildPeriodResult();
-		final PeriodResult periodThree = buildPeriodResult();
+		final IResult periodOne = resultBuilder.build();
+		final IResult periodTwo = resultBuilder.build();
+		final IResult periodThree = resultBuilder.build();
 		
 		periods[0] = periodOne;
 		periods[1] = periodTwo;
@@ -40,29 +28,6 @@ public class RandomSimpleGameSimulator implements IGameSimulator {
 		
 		final GameResult game = new GameResult(periods);
 		return game;
-	}
-
-	private PeriodResult buildPeriodResult() {
-		final Score score = buildScore();
-		final ShotsOnNet shots = buildShots(score);
-		final PeriodResult periodResult = new PeriodResult (score, shots);
-		return periodResult;
-	}
-	
-	private Score buildScore() {
-		final int homeScore = scoreSimulator.simulate();
-		final int awayScore = scoreSimulator.simulate();
-		final Score score = new Score(awayScore, homeScore);
-		return score;
-	}
-
-	private ShotsOnNet buildShots(final Score score) {
-		final int homeScore = score.getHomeNumberOfGoals();
-		final int awayScore = score.getVisitorNumberOfGoals();
-		final int homeShots = shotsSimulator.simulate(homeScore);
-		final int awayShots = shotsSimulator.simulate(awayScore);
-		final ShotsOnNet shots = new ShotsOnNet(awayShots, homeShots);
-		return shots;
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.hockeysimulator.simulators.period;
 
-import com.hockeysimulator.PeriodResult;
 import com.hockeysimulator.Score;
 import com.hockeysimulator.ShotsOnNet;
+import com.hockeysimulator.results.PeriodResult;
 import com.hockeysimulator.simulators.score.IScoreSimulator;
 import com.hockeysimulator.simulators.shots.IShotsOnNetSimulator;
 

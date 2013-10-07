@@ -1,7 +1,8 @@
 package com.hockeysimulator.simulators.modifiers;
 
+import com.hockeysimulator.simulators.random.Gaussian;
+
 public interface IGaussianModifier {
 
-	double getStandardDeviationModifier();
-	double getAverageModifier();
+	Gaussian apply(Gaussian gaussian);
 }

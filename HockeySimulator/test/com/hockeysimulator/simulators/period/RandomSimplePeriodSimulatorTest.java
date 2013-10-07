@@ -3,7 +3,7 @@ package com.hockeysimulator.simulators.period;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.hockeysimulator.PeriodResult;
+import com.hockeysimulator.results.PeriodResult;
 import com.hockeysimulator.simulators.random.Gaussian;
 import com.hockeysimulator.simulators.score.IScoreSimulator;
 import com.hockeysimulator.simulators.score.RandomGaussianScoreSimulator;

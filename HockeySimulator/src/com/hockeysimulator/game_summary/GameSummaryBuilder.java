@@ -1,15 +1,16 @@
 package com.hockeysimulator.game_summary;
 
-import com.hockeysimulator.GameResult;
-import com.hockeysimulator.PeriodResult;
 import com.hockeysimulator.Score;
 import com.hockeysimulator.ShotsOnNet;
+import com.hockeysimulator.results.GameResult;
+import com.hockeysimulator.results.IResult;
+import com.hockeysimulator.results.PeriodResult;
 
 public class GameSummaryBuilder implements IGameSummaryBuilder {
 
 	@Override
 	public GameSummary build(final GameResult gameResult) {
-		final PeriodResult[] periodResults = gameResult.getPeriodResults();
+		final IResult[] periodResults = gameResult.getPeriodResults();
 		final Score score = buildScore(periodResults);
 		final ShotsOnNet shotsOnNet = buildShots(periodResults);
 		final GameSummary gameSummary = new GameSummary(shotsOnNet, score);
@@ -17,12 +18,12 @@ public class GameSummaryBuilder implements IGameSummaryBuilder {
 
 	}
 
-	private Score buildScore(final PeriodResult[] periodResults) {
+	private Score buildScore(final IResult[] periodResults) {
 		final int numberOfPeriods = periodResults.length;
 		int homeGoals = 0;
 		int awayGoals = 0;
 		for (int i = 0; i < numberOfPeriods; i++) {
-			final Score score = periodResults[i].getScore();
+			final Score score = ((PeriodResult) periodResults[i]).getScore();
 			homeGoals += score.getHomeNumberOfGoals();
 			awayGoals += score.getVisitorNumberOfGoals();
 		}
@@ -30,12 +31,12 @@ public class GameSummaryBuilder implements IGameSummaryBuilder {
 		return score;
 	}
 
-	private ShotsOnNet buildShots(final PeriodResult[] periodResults) {
+	private ShotsOnNet buildShots(final IResult[] periodResults) {
 		final int numberOfPeriods = periodResults.length;
 		int homeShots = 0;
 		int awayShots = 0;
 		for (int i = 0; i < numberOfPeriods; i++) {
-			final ShotsOnNet shots = periodResults[i].getShotsOnNet();
+			final ShotsOnNet shots = ((PeriodResult) periodResults[i]).getShotsOnNet();
 			homeShots += shots.getHomeShotsOnNet();
 			awayShots += shots.getVistorShotsOnNet();
 		}

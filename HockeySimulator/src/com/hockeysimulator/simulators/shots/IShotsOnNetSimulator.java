@@ -1,6 +1,8 @@
 package com.hockeysimulator.simulators.shots;
 
-public interface IShotsOnNetSimulator {
+import com.hockeysimulator.simulators.ISimulator;
+
+public interface IShotsOnNetSimulator extends ISimulator {
 
 	int simulate(int minShots);
 }
