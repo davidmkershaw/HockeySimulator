@@ -1,6 +1,7 @@
 package com.hockeysimulator.simulators.game;
 
 import com.hockeysimulator.GameResult;
+import com.hockeysimulator.PeriodResult;
 import com.hockeysimulator.Score;
 import com.hockeysimulator.ShotsOnNet;
 import com.hockeysimulator.simulators.score.IScoreSimulator;
@@ -12,26 +13,42 @@ public class RandomSimpleGameSimulator implements IGameSimulator {
 
 	private IScoreSimulator scoreSimulator;
 	private IShotsOnNetSimulator shotsSimulator;
+	private PeriodResult[] periods;
+	private static final int DEFAULT_NUMBER_OF_PERIODS = 3;
 
 	public RandomSimpleGameSimulator() {
 		scoreSimulator = new RandomSimpleScoreSimulator();
 		shotsSimulator = new RandomSimpleShotsOnNetSimulator();
+		periods = new PeriodResult[DEFAULT_NUMBER_OF_PERIODS];
 	}
 	
 	public RandomSimpleGameSimulator(final IScoreSimulator scoreSimulator, final IShotsOnNetSimulator shotsSimulator) {
 		this.scoreSimulator = scoreSimulator;
 		this.shotsSimulator = shotsSimulator;
+		periods = new PeriodResult[DEFAULT_NUMBER_OF_PERIODS];
 	}
 
 	@Override
 	public GameResult simulate() {
-		final Score score = buildScore();
-		final ShotsOnNet shots = buildShots(score);
-		final GameResult game = new GameResult(score, shots);
+		final PeriodResult periodOne = buildPeriodResult();
+		final PeriodResult periodTwo = buildPeriodResult();
+		final PeriodResult periodThree = buildPeriodResult();
+		
+		periods[0] = periodOne;
+		periods[1] = periodTwo;
+		periods[2] = periodThree;
+		
+		final GameResult game = new GameResult(periods);
 		return game;
-
 	}
 
+	private PeriodResult buildPeriodResult() {
+		final Score score = buildScore();
+		final ShotsOnNet shots = buildShots(score);
+		final PeriodResult periodResult = new PeriodResult (score, shots);
+		return periodResult;
+	}
+	
 	private Score buildScore() {
 		final int homeScore = scoreSimulator.simulate();
 		final int awayScore = scoreSimulator.simulate();

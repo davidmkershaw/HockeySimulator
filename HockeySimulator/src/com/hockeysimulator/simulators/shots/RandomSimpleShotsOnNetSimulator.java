@@ -17,12 +17,6 @@ public class RandomSimpleShotsOnNetSimulator implements IShotsOnNetSimulator {
 		minShots = DEFAULT_MIN_SHOTS;
 	}
 
-	@Override
-	public int simulate() {
-		final int shots = numberGenerator.getRandomInteger(minShots, maxShots);
-		return shots;
-	}
-	
 	public int simulate(final int minShots) {
 		final int shots = numberGenerator.getRandomInteger(minShots, maxShots);
 		return shots;

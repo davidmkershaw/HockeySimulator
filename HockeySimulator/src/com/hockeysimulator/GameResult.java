@@ -1,21 +1,29 @@
 package com.hockeysimulator;
 
+import java.util.Arrays;
+
 public class GameResult {
 	
-	private Score score;
-	private ShotsOnNet shotsOnNet;
+	private PeriodResult[] periodResults;
 
-	public GameResult(final Score score, final ShotsOnNet shotsOnNet) {
-		this.score = score;
-		this.shotsOnNet = shotsOnNet;
+	public GameResult(PeriodResult[] periodResult) {
+		this.periodResults = periodResult;
+	}
+	
+	public PeriodResult[] getPeriodResults() {
+		return periodResults;
 	}
 
+	public void setPeriodResults(PeriodResult[] periodResults) {
+		this.periodResults = periodResults;
+	}
+	
 	@Override
 	public String toString() {
-		return "GameResult [score=" + score + ", shotsOnNet=" + shotsOnNet
+		return "GameResult [periodResult=" + Arrays.toString(periodResults)
 				+ "]";
-	}
-
+	}	
+	
 
 	
 }

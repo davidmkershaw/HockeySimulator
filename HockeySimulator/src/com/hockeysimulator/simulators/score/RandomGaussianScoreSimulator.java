@@ -6,7 +6,7 @@ import com.hockeysimulator.simulators.random.RandomGaussianNumberGenerator;
 public class RandomGaussianScoreSimulator implements IScoreSimulator {
 
 	private IRandomGaussianNumberGenerator randomNumberGenerator;
-	private static int LOWEST_NUMBER_OF_GOALS_ALLOWED = 0;
+	private static final int LOWEST_NUMBER_OF_GOALS_ALLOWED = 0;
 	
 	
 	public RandomGaussianScoreSimulator(final double average, final int standardDeviation) {
