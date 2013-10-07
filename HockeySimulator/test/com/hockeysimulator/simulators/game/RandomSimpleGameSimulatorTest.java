@@ -7,6 +7,7 @@ import com.hockeysimulator.GameResult;
 import com.hockeysimulator.game_summary.GameSummary;
 import com.hockeysimulator.game_summary.GameSummaryBuilder;
 import com.hockeysimulator.game_summary.IGameSummaryBuilder;
+import com.hockeysimulator.simulators.random.Gaussian;
 import com.hockeysimulator.simulators.score.IScoreSimulator;
 import com.hockeysimulator.simulators.score.RandomGaussianScoreSimulator;
 import com.hockeysimulator.simulators.shots.IShotsOnNetSimulator;
@@ -24,13 +25,16 @@ public class RandomSimpleGameSimulatorTest {
 	
 	@Test
 	public void simulateSimpleRandomGaussianGame() {
-		final int scoreStandardDeviation = 1;
+		final double scoreStandardDeviation = 1.5;
 		final double scoreAverage = 0.9;
-		final int shotsStandardDeviation = 4;
+		final double shotsStandardDeviation = 4.2;
 		final double shotsAverage = 10;
 		
-		final IShotsOnNetSimulator shotsSimulator = new RandomGaussianShotsSimulator(shotsAverage, shotsStandardDeviation);
-		final IScoreSimulator scoreSimulator = new RandomGaussianScoreSimulator(scoreAverage, scoreStandardDeviation);
+		final Gaussian scoreGaussian = new Gaussian(scoreStandardDeviation, scoreAverage);
+		final Gaussian shotsGaussian = new Gaussian(shotsStandardDeviation, shotsAverage);
+		
+		final IShotsOnNetSimulator shotsSimulator = new RandomGaussianShotsSimulator(shotsGaussian);
+		final IScoreSimulator scoreSimulator = new RandomGaussianScoreSimulator(scoreGaussian);
 		final IGameSimulator gameSimulator = new RandomSimpleGameSimulator(scoreSimulator, shotsSimulator);
 		final GameResult game = gameSimulator.simulate();
 		Assert.assertNotNull(game);

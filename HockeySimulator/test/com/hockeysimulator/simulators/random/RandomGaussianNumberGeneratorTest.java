@@ -8,10 +8,15 @@ public class RandomGaussianNumberGeneratorTest {
 	public void testGenerateRandomNumber() {
 		final double average = 2.75;
 		final int standardDeviation = 2;
-		IRandomGaussianNumberGenerator generator = new RandomGaussianNumberGenerator(average, standardDeviation);
-		for (int i = 0; i < 100; i ++){
+		final Gaussian gaussian = new Gaussian(standardDeviation, average);
+		IRandomGaussianNumberGenerator generator = new RandomGaussianNumberGenerator(gaussian);
+	    int max = 0;
+		for (int i = 0; i < 82; i ++){
 			int generated = generator.getRandomInteger();
-			System.out.println(generated);
+			if (generated > max) {
+				System.out.println(generated);
+				max = generated;
+			}
 		}
 	}
 	

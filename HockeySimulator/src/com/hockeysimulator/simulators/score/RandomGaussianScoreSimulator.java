@@ -1,5 +1,6 @@
 package com.hockeysimulator.simulators.score;
 
+import com.hockeysimulator.simulators.random.Gaussian;
 import com.hockeysimulator.simulators.random.IRandomGaussianNumberGenerator;
 import com.hockeysimulator.simulators.random.RandomGaussianNumberGenerator;
 
@@ -9,8 +10,8 @@ public class RandomGaussianScoreSimulator implements IScoreSimulator {
 	private static final int LOWEST_NUMBER_OF_GOALS_ALLOWED = 0;
 	
 	
-	public RandomGaussianScoreSimulator(final double average, final int standardDeviation) {
-		randomNumberGenerator = new RandomGaussianNumberGenerator(average, standardDeviation);
+	public RandomGaussianScoreSimulator(final Gaussian gaussian) {
+		randomNumberGenerator = new RandomGaussianNumberGenerator(gaussian);
 	}
 	
 	@Override
